@@ -1,78 +1,44 @@
-
-function Customer(first) {
-  this.first = first;
+function Customer(nameInput, initialInput) {
+ this.name = nameInput;
+ this.money = initialInput;
 }
 
-var ticketAge = {
-  childTicket: "Child",
-  adultTicket: "Adult",
-  seniorTicket: "Senior"
+// newCustomer {
+  // name: John Doe;
+  // Money: 500;
+//}
+
+Customer.prototype.balanceUpdate = function(depo, withd) {
+  debugger;
+  return this.money += depo - withd
 }
 
-var ticketPrice = {
-  childTicket: 8,
-  adultTicket: 12,
-  seniorTicket: 8
-}
+var Customers = [];
 
-var movieChoice = {
-  starWars: "Star Wars: Rogue One",
-  arrival: "Arrival",
-  bourne: "Jason Bourne",
-  insidious: "Insidious"
-}
-
-var moviePrice = {
-  starWars: 2,
-  arrival: 2,
-  bourne: 0,
-  insidious: -1
-}
-
-var movieTime = {
-  matinee: "Matinee",
-  evening: "Evening"
-}
-
-var movieTimePrice = {
-  matinee: 0,
-  evening: 1
-}
-
-var mathPrices = function(age, time, movie, quant) {
-  var addThings = age + time + movie;
-  var totalPrice = addThings * quant;
-  return totalPrice;
-}
 
 
 $(document).ready(function() {
 
-  $("form#box-office").submit(function(event) {
+  $("form#registration").submit(function(event) {
+    debugger;
+    event.preventDefault();
+    var nameInput = $("input#name").val();
+    var initialInput = parseInt($("input#number").val());
+    var newCustomer = new Customer(nameInput, initialInput);
+    Customers.push(newCustomer);
+    console.log(Customers[0].money);
+    $("#somethingHere h3").text(Customers[0].money);
+  });
+
+  $("form#atm").submit(function(event) {
     event.preventDefault();
     debugger;
-    var customerInput = $("#customer").val();
-    var ageInput = $("#age").val();
-    var timeInput = $("#time").val();
-    var movieInput = $("#movie").val();
-    var ticketQuantity = Number($("#quantity").val());
-
-    var totalCost = mathPrices(ticketPrice[ageInput], movieTimePrice[timeInput], moviePrice[movieInput], ticketQuantity);
-
-
-
-
-
-    $("#ticketQuant").text(ticketQuantity);
-    $("#ageOutput").text(ticketAge[ageInput]);
-    $("#timeOutput").text(movieTime[timeInput])
-    $("#movieOutput").text(movieChoice[movieInput]);
-    $("#nameOutput").text(customerInput);
-    $("#totalPrice").text("$" + totalCost);
-
-    $(".output").show();
-
+    var depositInput = parseInt($("input#deposit").val());
+    var withdrawalInput = parseInt($("input#withdrawal").val());
+    var totalChange = Customers[0].balanceUpdate(depositInput, withdrawalInput);
+    $("#newBalance").text(totalChange);
   });
+
 
 
 });
