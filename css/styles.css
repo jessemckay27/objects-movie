@@ -1,0 +1,12 @@
+.margin-bottom {
+  margin-bottom: 15px;
+}
+
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.output {
+  display: none;
+}
